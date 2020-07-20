@@ -1,0 +1,13 @@
+<a class="movie-card" [routerLink]="movieDescriptionLink">
+    <div class="movie-card-poster">
+        <img [src]="poster" />
+    </div>
+
+    <div class="movie-content">
+        <div class="movie-title">{{ title }}</div>
+        <div class="movie-desc">
+            {{ year }}
+            {{ type }}
+        </div>
+    </div>
+</a>

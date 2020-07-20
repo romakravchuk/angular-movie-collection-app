@@ -1,0 +1,40 @@
+body {
+    background-color: var(--main-bg-color);
+    touch-action: auto;
+    font-size: var(--main-font-size);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+}
+
+h1 {
+    font-size: calc(var(--main-font-size) * 2.2);
+}
+
+h2 {
+    font-size: calc(var(--main-font-size) * 2);
+}
+
+h3 {
+    font-size: calc(var(--main-font-size) * 1.8);
+}
+
+h4 {
+    font-size: calc(var(--main-font-size) * 1.6);
+}
+
+h5 {
+    font-size: calc(var(--main-font-size) * 1.4);
+}
+
+h6 {
+    font-size: calc(var(--main-font-size) * 1.2);
+}

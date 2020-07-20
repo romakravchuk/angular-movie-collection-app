@@ -1,0 +1,11 @@
+<form [formGroup]="movieSearchForm" (ngSubmit)="onSubmit()">
+    <label>
+        Search:
+        <input type="text" formControlName="title" required minlength="3" />
+    </label>
+    <button type="submit" [disabled]="!movieSearchForm.valid">Submit</button>
+</form>
+
+<app-movie-card *ngFor="let movieData of searchState$ | async" [movieData]="movieData"></app-movie-card>
+<mat-paginator [length]="totalMovieResultsState$ | async" [pageSize]="10" (page)="onPageChange($event)">
+</mat-paginator>
