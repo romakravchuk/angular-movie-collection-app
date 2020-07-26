@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppComponent } from './app.component';
 import { AppPagesModule } from './pages/app-pages.module';
@@ -20,7 +20,10 @@ import { CustomSerializer } from './store/router-serializer/serializer';
     imports: [
         BrowserModule,
         HttpClientModule,
-        StoreModule.forRoot({ uiState: reducers }),
+        StoreModule.forRoot({
+            uiState: reducers,
+            router: routerReducer,
+        }),
         EffectsModule.forRoot([AppEffects]),
         StoreDevtoolsModule.instrument({
             maxAge: 5,

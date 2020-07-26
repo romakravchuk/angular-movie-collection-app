@@ -1,1 +1,25 @@
-<p>about</p>
+<div *ngIf="!isLoading; else spinner">
+    <div class="container">
+        <div class="container-left">
+            <h2 style="word-break: break-word;">{{ Title }}</h2>
+            <h6>IMDB Rating: {{ imdbRating }}</h6>
+        </div>
+
+        <div class="container-right">
+            <div class="container-half">
+                <img [src]="Poster !== 'N/A' ? Poster : 'assets/images/no-image.jpg'" alt="" />
+                <div>
+                    <p>Runtime: {{ Runtime }}</p>
+                    <p>Genre: {{ Genre }}</p>
+                    <p>Year: {{ Year }}</p>
+                    <p>Type: {{ Type }}</p>
+                </div>
+            </div>
+            <p class="mt-30">{{ Plot }}</p>
+        </div>
+    </div>
+</div>
+
+<ng-template #spinner>
+    <p class="loader">Loading...</p>
+</ng-template>

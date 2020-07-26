@@ -4,6 +4,7 @@ import { MovieItem } from '../../store/state/app.state';
 @Component({
     selector: 'app-movie-card',
     templateUrl: 'app-movie-card.component.html',
+    styleUrls: ['movie-card.scss'],
 })
 export class AppMovieCardComponent implements OnInit {
     @Input() movieData: MovieItem;

@@ -12,9 +12,9 @@ export class AppPagesService {
         this.baseApiUrl = environment.baseApiUrl;
     }
 
-    searchMovies(movieTitle: string, pageNumber = 1): Observable<SearchState> {
+    searchMovies(movieTitle: string, pageNumber = 0): Observable<SearchState> {
         return this.httpClient.get<SearchState>(
-            `${this.baseApiUrl}?apikey=f79aeba3&s=${movieTitle}&page=${pageNumber}`
+            `${this.baseApiUrl}?apikey=f79aeba3&s=${movieTitle}&page=${pageNumber + 1}`
         );
     }
 

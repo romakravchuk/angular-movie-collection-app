@@ -1,8 +1,3 @@
-import * as fromRouter from '@ngrx/router-store';
-import { RouterReducerState, RouterState } from '@ngrx/router-store';
-import { Action, ActionReducer } from '@ngrx/store';
-import { AppRouterStateUrl } from '../router-serializer/serializer';
-
 interface Ratings {
     Source: string;
     Value: string;
@@ -14,29 +9,41 @@ export interface MovieItem {
     Year: string;
     Type: string;
     imdbID: string;
-    [propName: string]: string | Ratings[];
+    Plot: string;
+    imdbRating: string;
+    Runtime: string;
+    Genre: string;
+    isLoading: boolean;
+    [propName: string]: string | boolean | Ratings[];
 }
 
 export interface SearchState {
     Search: MovieItem[];
-    totalResults: string;
+    totalResults: string | number;
     Response: string;
+    Error: string;
     isLoading: boolean;
+    pageIndex: number;
 }
 
 export interface ApplicationState {
+    router: any;
+    uiState: UiState;
+}
+export interface UiState {
     searchState: SearchState;
     movieItemState: MovieItem;
     movieTitle: string;
-    routerState: AppRouterStateUrl;
 }
 
-export const INITIAL_APPLICATION_STATE: ApplicationState = {
+export const INITIAL_APPLICATION_STATE: UiState = {
     searchState: {
         Search: [],
         totalResults: '0',
         Response: 'false',
+        Error: '',
         isLoading: true,
+        pageIndex: 0,
     },
     movieItemState: {
         Title: '',
@@ -48,10 +55,7 @@ export const INITIAL_APPLICATION_STATE: ApplicationState = {
         Runtime: '',
         Genre: '',
         imdbID: '',
+        isLoading: true,
     },
     movieTitle: '',
-    routerState: {
-        id: '',
-        url: '',
-    },
 };

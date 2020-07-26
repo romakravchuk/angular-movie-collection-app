@@ -1,13 +1,13 @@
 <a class="movie-card" [routerLink]="movieDescriptionLink">
     <div class="movie-card-poster">
-        <img [src]="poster" />
+        <img [src]="poster !== 'N/A' ? poster : 'assets/images/no-image.jpg'" />
     </div>
 
     <div class="movie-content">
         <div class="movie-title">{{ title }}</div>
         <div class="movie-desc">
-            {{ year }}
-            {{ type }}
+            <span>{{ year }}</span>
+            <span>{{ type }}</span>
         </div>
     </div>
 </a>

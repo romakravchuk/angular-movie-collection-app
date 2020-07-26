@@ -4,6 +4,8 @@ import { EMPTY } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { AppPagesService } from '../../pages/app-pages.service';
 import {
+    GetMovieByIdLoadAction,
+    GetMovieByIdSuccessAction,
     GetMovieByTitleLoadAction,
     GetMovieByTitleSuccessAction,
     onPageChangeMovieByTitleLoadAction,
@@ -11,6 +13,8 @@ import {
 
 @Injectable()
 export class AppEffects {
+    constructor(private actions$: Actions, private appPagesService: AppPagesService) {}
+
     loadMovies$ = createEffect(() =>
         this.actions$.pipe(
             ofType(GetMovieByTitleLoadAction),
@@ -28,12 +32,25 @@ export class AppEffects {
             ofType(onPageChangeMovieByTitleLoadAction),
             mergeMap(({ movieTitle, pageIndex }) => {
                 return this.appPagesService.searchMovies(movieTitle, pageIndex).pipe(
-                    map((searchState) => ({ type: GetMovieByTitleSuccessAction, searchState })),
+                    map((searchState) => ({
+                        type: GetMovieByTitleSuccessAction,
+                        searchState: { ...searchState, pageIndex },
+                    })),
                     catchError(() => EMPTY)
                 );
             })
         )
     );
 
-    constructor(private actions$: Actions, private appPagesService: AppPagesService) {}
+    getMovieDetails$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetMovieByIdLoadAction),
+            mergeMap(({ movieId }) =>
+                this.appPagesService.getMovieById(movieId).pipe(
+                    map((movieItemState) => ({ type: GetMovieByIdSuccessAction, movieItemState })),
+                    catchError(() => EMPTY)
+                )
+            )
+        )
+    );
 }

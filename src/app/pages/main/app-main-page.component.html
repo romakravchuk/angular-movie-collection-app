@@ -1,11 +1,40 @@
-<form [formGroup]="movieSearchForm" (ngSubmit)="onSubmit()">
-    <label>
-        Search:
-        <input type="text" formControlName="title" required minlength="3" />
-    </label>
-    <button type="submit" [disabled]="!movieSearchForm.valid">Submit</button>
-</form>
-
-<app-movie-card *ngFor="let movieData of searchState$ | async" [movieData]="movieData"></app-movie-card>
-<mat-paginator [length]="totalMovieResultsState$ | async" [pageSize]="10" (page)="onPageChange($event)">
-</mat-paginator>
+<div class="container">
+    <div class="container-left">
+        <h1>Explore movies & series</h1>
+    </div>
+    <div class="container-right">
+        <form class="search-form" [formGroup]="movieSearchForm" (ngSubmit)="onSubmit()">
+            <input
+                class="search-form-input"
+                type="text"
+                formControlName="title"
+                required
+                minlength="3"
+                placeholder="Search..."
+            />
+            <button class="search-form-btn" type="submit" [disabled]="!movieSearchForm.valid">
+                <mat-icon>search</mat-icon>
+            </button>
+        </form>
+        <ng-container *ngIf="!isLoading">
+            <ng-container *ngIf="!this.isLoadingSearchState; else spinner">
+                <div *ngIf="errorState">{{ errorState }}</div>
+                <div class="card-container">
+                    <app-movie-card
+                        *ngFor="let movieData of searchState$ | async"
+                        [movieData]="movieData"
+                    ></app-movie-card>
+                </div>
+            </ng-container>
+            <mat-paginator
+                *ngIf="totalMovieResultsState > 10"
+                [length]="totalMovieResultsState"
+                [pageSize]="10"
+                [pageIndex]="pageIndex"
+                (page)="onPageChange($event)"
+            >
+            </mat-paginator>
+            <ng-template #spinner><p>Loading...</p></ng-template>
+        </ng-container>
+    </div>
+</div>

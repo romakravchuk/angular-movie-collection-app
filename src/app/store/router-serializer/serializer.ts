@@ -3,7 +3,7 @@ import { RouterStateSerializer } from '@ngrx/router-store';
 
 export interface AppRouterStateUrl {
     url: string;
-    id: string;
+    params: Params;
 }
 
 export class CustomSerializer implements RouterStateSerializer<AppRouterStateUrl> {
@@ -14,14 +14,9 @@ export class CustomSerializer implements RouterStateSerializer<AppRouterStateUrl
             currentRoute = currentRoute.firstChild;
         }
 
-        const {
-            url,
-            root: { queryParams },
-        } = state;
-        const {
-            params: { id },
-        } = currentRoute;
+        const { url } = state;
+        const { params } = currentRoute;
 
-        return { url, id };
+        return { url, params };
     }
 }

@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { getMovieByTitleLoad, getMovieByTitleSuccess, getRouterNavigationEnd } from '../actions/app.actions';
-import { ApplicationState, INITIAL_APPLICATION_STATE } from '../state/app.state';
+import { getMovieByIdSuccess, getMovieByTitleLoad, getMovieByTitleSuccess } from '../actions/app.actions';
+import { UiState, INITIAL_APPLICATION_STATE } from '../state/app.state';
 
 const getMovieByTitleReducer = createReducer(
     INITIAL_APPLICATION_STATE,
@@ -13,15 +13,12 @@ const getMovieByTitleReducer = createReducer(
         ...state,
         searchState: { ...searchState, isLoading: false },
     })),
-    on(getRouterNavigationEnd, (state, { payload: { routerState } }) => {
-        console.log(routerState, 'routerState');
-        return {
-            ...state,
-            routerState: { url: routerState.url, id: routerState.params.id },
-        };
-    })
+    on(getMovieByIdSuccess, (state, { movieItemState }) => ({
+        ...state,
+        movieItemState: { ...movieItemState, isLoading: false },
+    }))
 );
 
-export function reducers(state: ApplicationState, action: Action): ApplicationState {
+export function reducers(state: UiState, action: Action): UiState {
     return getMovieByTitleReducer(state, action);
 }
